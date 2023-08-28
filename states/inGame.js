@@ -7,13 +7,15 @@ import inquirer from 'inquirer';
 
 const inGamePrompt = fs.readFileSync("./prompts/inGame.txt").toString()
 
-export default function Game(playerName) {
+export default function Game(playerData) {
     this.state = {
         score: [0, 0], // 0 is blue, 1 is orange
         clock: "5:00",
-        playerName: playerName || "Player1",
+        playerName: playerData.name,
         playerNames: [["Player1", "Player2"], ["Player3", "Player4"]],
-        actionHistory: []
+        actionHistory: [],
+        mmr: playerData.mmr,
+        winStreak: playerData.winStreak
     }
 }
 
@@ -54,7 +56,7 @@ Game.prototype.submitPlayerAction = function(action) {
 Game.prototype.renderRoleplay = async function() {
     const roleplay = await this.generateRoleplay()
 
-    console.log(`${roleplay.state.clock} | ` + chalk.blue(`[${this.state.score[0]}] ${this.state.playerNames[0].join(", ")}`) + " vs " + chalk.yellow(`${this.state.playerNames[1].join(", ")} [${this.state.score[1]}]`))
+    console.log(chalk.greenBright(`${roleplay.state.clock}`) + " | " + chalk.blue(`[${this.state.score[0]}] ${this.state.playerNames[0].join(", ")}`) + " vs " + chalk.yellow(`${this.state.playerNames[1].join(", ")} [${this.state.score[1]}]`))
 
     if (!roleplay.isGameOver) {
         const action = await inquirer.prompt([

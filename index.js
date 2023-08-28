@@ -7,15 +7,16 @@ import Game from "./states/inGame.js"
 
 const mainMenuPrompt = fs.readFileSync("./prompts/mainMenu.txt").toString()
 
-const gameState = {
-    mmr: 600,
-    winStreak: 0
+const playerData = {
+    mmr: 800,
+    winStreak: 0,
+    name: "kisperal"
 }
 
 async function main() {
     // const completion = await generateCompletion(inGamePrompt, "Generate a list of actions that the user could take from here.")
 
-    const game = new Game("kispywispyUWU")
+    const game = new Game(playerData)
 
     await game.initialize()
 

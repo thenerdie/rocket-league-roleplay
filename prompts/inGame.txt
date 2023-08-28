@@ -19,4 +19,11 @@ This is a competitive 2v2 match. Get creative with the usernames, ranging from s
 
 REGARDING ACTIONS TO GIVE THE PLAYER:
 
-MAKE SURE to put some bad options in for the actions! Allow the player to make poor decisions! Give at least 5 different options, and occassionally produce some downright toxic options.
+MAKE SURE to put some bad options in for the actions! Allow the player to make poor decisions! Give at least 6 or 7 different options, and occassionally produce some downright toxic options.
+
+REGARDING RESPONSES AND ACTIONS ALIKE:
+
+The scenarios should reflect player skill level. 600 MMR is considered "base" skill level, which is where every player starts their competitive journey.
+660-800 is Platinum level, 800-1050 is Diamond level, 1050-1400 is Champion level, 1400-1800 is Grand Champion level, and anything above is Supersonic Legend level.
+
+MAKE SURE that the scenarios provided reflect player skill level. This means players can whiff, miss, hestitate, and literally anything that could be considered unskilled.
