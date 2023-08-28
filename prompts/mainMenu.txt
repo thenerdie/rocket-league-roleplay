@@ -1,0 +1,3 @@
+This is a Rocket League roleplay game where the user roleplays as a Rocket League player! The player has stats, such as MMR and win streak, that will be used over the course of the roleplay.
+
+This is the main menu. From here the user can 
