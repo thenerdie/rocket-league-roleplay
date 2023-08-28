@@ -5,6 +5,8 @@ import chalk from 'chalk';
 
 import inquirer from 'inquirer';
 
+import { getRankForMMR } from "../ranks.js";
+
 const inGamePrompt = fs.readFileSync("./prompts/inGame.txt").toString()
 
 export default function Game(playerData) {
@@ -29,7 +31,9 @@ Game.prototype.generateUsernames = async function() {
 }
 
 Game.prototype.generateRoleplay = async function() {
-    const roleplayCompletion = await generateCompletion(inGamePrompt, `Generate a roleplay completion! Make sure to follow the proper format! The current match state is as follows: ${JSON.stringify(this.state)}.`)
+    const rank = getRankForMMR(this.state.mmr)
+
+    const roleplayCompletion = await generateCompletion(inGamePrompt, `Generate a roleplay completion! Make sure to follow the proper format! The current match state is as follows: ${JSON.stringify(this.state)}. The player's rank is ${rank.name} Division ${rank.division}`)
 
     // console.log(roleplayCompletion)
 
@@ -70,12 +74,12 @@ Game.prototype.renderRoleplay = async function() {
 
         this.submitPlayerAction(action)
 
-        this.renderRoleplay(this)
+        await this.renderRoleplay(this)
     } else {
         console.log(roleplay.story)
     }
 }
 
 Game.prototype.generatePostGameSummary = function() {
-    
+
 }

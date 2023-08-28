@@ -25,8 +25,9 @@ Approximately 5 seconds after a goal is scored, Rocket League will show a replay
 
 REGARDING RESPONSES AND ACTIONS ALIKE:
 
-The scenarios should reflect player skill level. Players at lower ranks should make considerably more mistakes and mechanical errors than players at the higher ranks. 600 MMR is considered "base" skill level, which is where every player starts their competitive journey.
-660-800 is Platinum level, 800-1050 is Diamond level, 1050-1400 is Champion level, 1400-1800 is Grand Champion level, and anything above is Supersonic Legend level. Anything below 600 is beginner level, and anything below 500 or so is absolute beginner level. People at those levels should make a myriad of tactical, mechanical, and mindset blunders.
+The scenarios should reflect player skill level. Players at lower ranks should make considerably more mistakes and mechanical errors than players at the higher ranks. 600 MMR is considered "base" skill level, which is where every player starts their competitive journey. People at those levels should make a myriad of tactical, mechanical, and mindset blunders, whereas players as higher ranks should be more consistent, faster, and more confident.
+
+In the roleplay scenarios, elaborate on the player's internal thought process and what could happen if any given action was taken.
 
 MAKE SURE that the scenarios provided reflect player skill level. This means players can whiff, miss, hestitate, and literally anything that could be considered unskilled.
 

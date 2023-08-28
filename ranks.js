@@ -1,71 +1,65 @@
-const tierRatingMap = [
-    { name: "Prism", minRating: 2450 },
-    { name: "Ultraviolet", minRating: 2100 },
-    { name: "Emerald", minRating: 1800 },
-    { name: "Diamond", minRating: 1500 },
-    { name: "Gold", minRating: 1200 },
-    { name: "Silver", minRating: 850 },
-    { name: "Bronze", minRating: 500 },
-    { name: "Tin", minRating: 350 }
+const mmrMap = [
+    { name: "Supersonic Legend", minRating: 1861 },
+    { name: "Grand Champion III", minRating: 1715 },
+    { name: "Grand Champion II", minRating: 1575 },
+    { name: "Grand Champion I", minRating: 1424 },
+    { name: "Champion III", minRating: 1302 },
+    { name: "Champion II", minRating: 1181 },
+    { name: "Champion I", minRating: 1061 },
+    { name: "Diamond III", minRating: 981 },
+    { name: "Diamond II", minRating: 901 },
+    { name: "Diamond I", minRating: 821 },
+    { name: "Platinum III", minRating: 761 },
+    { name: "Platinum II", minRating: 701 },
+    { name: "Platinum I", minRating: 641 },
+    { name: "Gold III", minRating: 581 },
+    { name: "Gold II", minRating: 521 },
+    { name: "Gold I", minRating: 461 },
+    { name: "Silver III", minRating: 401 },
+    { name: "Silver II", minRating: 342 },
+    { name: "Silver I", minRating: 288 },
+    { name: "Bronze III", minRating: 226 },
+    { name: "Bronze II", minRating: 163 },
+    { name: "Bronze I", minRating: 0 }
 ]
 
-function Tiers:GetTierFromRating(rating)
-    tierRatingMap.forEach((tier, i) => {
-        if (i == #TierRatingMap - 1 && rating < tier.minRating) then
-            return {
-                name = tier.name,
-                division = 1,
-                subdivision = 1,
-                tierBaseValue = i
-            }
-        end
+function lerp(a, b, alpha) {
+    return a + (b - a) * alpha
+}
 
-        if rating >= tier.minRating or i == #TierRatingMap then
-            if i ~= 1 then
-                local nextTier = TierRatingMap[i - 1]
+export function getRankForMMR(mmr) {
+    let rankIndex = 0
 
-                for x = 2, 0, -1 do
-                    local divisionBorder = SPUtil:lerp(tier.minRating, nextTier.minRating, x / 3)
+    for (let rank of mmrMap) {
+        if (mmr < rank.minRating) {
+            rankIndex++
+            continue
+        }
 
-                    if rating >= divisionBorder then
-                        local nextDivisionBorder = if x == 2 then nextTier.minRating else SPUtil:lerp(tier.minRating, nextTier.minRating, (x + 1) / 3)
-                        
-                        for y = 3, 0, -1 do
-                            local subdivisionBorder = SPUtil:lerp(divisionBorder, nextDivisionBorder, y / 4)
+        let division = 1
 
-                            if rating >= subdivisionBorder then
-                                return {
-                                    name = tier.name,
-                                    division = x + 1,
-                                    subdivision = y + 1,
-                                    tierBaseValue = i
-                                }
-                            end
-                        end
-                    end
-                end
-            else
-                return {
-                    name = tier.name
+        if (rank.name !== "Supersonic Legend") {
+            const percentageIncrease = 25
+            let percentageToNextRank = percentageIncrease
+
+            let prevThreshold
+
+            while (percentageToNextRank <= 75) {
+                let divisionThreshold = lerp(prevThreshold || rank.minRating, mmrMap[rankIndex - 1].minRating, percentageToNextRank / 100)
+
+                if (mmr >= divisionThreshold) {
+                    division++
+                    percentageToNextRank += percentageIncrease
+                    prevThreshold = divisionThreshold
+                } else {
+                    break
                 }
-            end
-        end
-    end
-    })
-end
+            }
+        }
 
-function Tiers:GetStringForTier(tier, omitSubdivision)
-    local str = tier.name
-
-    if tier.division then
-        str ..= " " .. string.rep("I", tier.division)
-
-        if not omitSubdivision then
-            str ..= " Division " .. if tier.subdivision == 4 then "IV" else string.rep("I", tier.subdivision)
-        end
-    end
-
-    return str
-end
-
-return Tiers
+        return {
+            name: rank.name,
+            division: division
+        }
+    }
+}

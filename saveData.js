@@ -13,7 +13,11 @@ export default function SaveData() {
 }
 
 SaveData.prototype.save = function() {
+    const serialized = JSON.stringify(this.data)
 
+    fs.writeFileSync("./data.json", serialized, {
+        encoding: "utf-8"
+    })
 }
 
 SaveData.prototype.constructor = function() {
@@ -26,7 +30,8 @@ SaveData.prototype.constructor = function() {
         console.log(chalk.yellow("Saved game data could not be loaded. Starting from a blank save..."))
     }
 
-    data?.keys().forEach(key => {
-        this.data[key] = data[key]
-    })
+    if (data)
+        Object.keys(data).forEach(key => {
+            this.data[key] = data[key]
+        })
 }

@@ -10,6 +10,9 @@ import inquirer from 'inquirer';
 import SaveData from "./saveData.js"
 import Game from "./states/inGame.js"
 
+import { getRankForMMR } from "./ranks.js"
+import { on } from 'events';
+
 const mainMenuPrompt = fs.readFileSync("./prompts/mainMenu.txt").toString()
 
 const saveData = new SaveData()
@@ -43,12 +46,20 @@ async function main() {
 
             break
         case options.rank:
-            console.log(`Your current MMR is ${saveData.data.mmr}.`)
+            const rank = getRankForMMR(saveData.data.mmr)
+
+            console.log(`Your current MMR is ${saveData.data.mmr}, which is equivalent to a rank of ${rank.name} Division ${rank.division}.`)
 
             main()
 
             break
     }
 }
+
+function onExit() {
+    saveData.save()
+}
+
+process.on("exit", onExit)
 
 main()
