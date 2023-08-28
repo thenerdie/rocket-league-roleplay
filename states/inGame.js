@@ -21,7 +21,7 @@ export default function Game(playerData) {
 
 Game.prototype.generateUsernames = async function() {
     const playerNameCompletion = await generateCompletion("You are a username generator. Be creative with usernames, and generate names in varying styles per matchup, including informal and silly usernames such as BOS CHUNGO and imnotsmurfingXD. Usernames can have spaces, too!", `Generate usernames for players in a 2v2 team, with one player being ${this.state.playerName}. Your response must be in JSON format with no other text.` + 
-    "It must be a two-dimensional array that follows the format [[Player1, Player2], [Player3, Player4]]. Don't make the other names too similar to the player's name!")
+    "It must be a two-dimensional array that follows the format [[Player1, Player2], [Player3, Player4]]. Don't make the other names too similar to the player's name, but MAKE THE NAMES REALISTIC! They should be very random, sometimes silly, sometimes creative, and sometimes just plain weird. They should reflect how most Epic Games players would name themselves.")
 
     const playerNames = JSON.parse(playerNameCompletion)
 
@@ -74,4 +74,8 @@ Game.prototype.renderRoleplay = async function() {
     } else {
         console.log(roleplay.story)
     }
+}
+
+Game.prototype.generatePostGameSummary = function() {
+    
 }
